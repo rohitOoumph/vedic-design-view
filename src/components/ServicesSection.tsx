@@ -1,4 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card';
+import { motion } from 'framer-motion';
 
 const services = [
   {
@@ -58,10 +59,35 @@ const services = [
 ];
 
 const ServicesSection = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
   return (
     <section className="py-24 bg-background">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
             Our Services
           </h2>
@@ -69,26 +95,60 @@ const ServicesSection = () => {
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Comprehensive design and execution services tailored to bring your vision to life
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Desktop Grid */}
+        <motion.div 
+          className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
           {services.map((service, index) => (
-            <Card 
+            <motion.div key={index} variants={itemVariants}>
+              <Card className="group h-full hover:shadow-xl transition-all duration-300 border-border hover:border-accent/50 bg-card">
+                <CardContent className="p-8">
+                  <div className="text-accent mb-6 group-hover:scale-110 transition-transform duration-300">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-2xl font-semibold mb-4 text-foreground">
+                    {service.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {service.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Mobile Horizontal Scroll */}
+        <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-6 pb-4 scrollbar-hide -mx-6 px-6">
+          {services.map((service, index) => (
+            <motion.div
               key={index}
-              className="group hover:shadow-xl transition-all duration-300 border-border hover:border-accent/50 bg-card"
+              className="snap-center flex-shrink-0 w-[85vw]"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <CardContent className="p-8">
-                <div className="text-accent mb-6 group-hover:scale-110 transition-transform duration-300">
-                  {service.icon}
-                </div>
-                <h3 className="text-2xl font-semibold mb-4 text-foreground">
-                  {service.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {service.description}
-                </p>
-              </CardContent>
-            </Card>
+              <Card className="h-full border-border bg-card">
+                <CardContent className="p-6">
+                  <div className="text-accent mb-4">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3 text-foreground">
+                    {service.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    {service.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </div>

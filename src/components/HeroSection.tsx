@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
 import Hero3D from './Hero3D';
 import heroImage from '@/assets/project-coworking-1.jpg';
 
@@ -22,18 +23,38 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="container mx-auto px-6 relative z-20">
-        <div className="max-w-3xl animate-fade-in-up">
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 leading-tight">
+        <motion.div 
+          className="max-w-3xl"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <motion.h1 
+            className="text-6xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 leading-tight"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             Premium Interiors for{' '}
             <span className="text-accent">Homes & Offices</span>
-          </h1>
+          </motion.h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl leading-relaxed">
+          <motion.p 
+            className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             Creating inspiring environments through thoughtful design, quality execution, 
             and client-centric solutions since 2015.
-          </p>
+          </motion.p>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <motion.div 
+            className="flex flex-col sm:flex-row gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
             <Button 
               size="lg" 
               className="text-lg px-8 py-6 bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-300"
@@ -47,9 +68,14 @@ const HeroSection = () => {
             >
               View Our Portfolio
             </Button>
-          </div>
+          </motion.div>
 
-          <div className="mt-12 flex items-center gap-8 text-sm text-muted-foreground">
+          <motion.div 
+            className="mt-12 flex items-center gap-8 text-sm text-muted-foreground"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
             <div>
               <div className="text-3xl font-bold text-accent">200+</div>
               <div>Projects Completed</div>
@@ -64,8 +90,8 @@ const HeroSection = () => {
               <div className="text-3xl font-bold text-accent">100%</div>
               <div>Client Satisfaction</div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

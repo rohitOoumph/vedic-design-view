@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { motion } from 'framer-motion';
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -51,7 +52,13 @@ const ContactSection = () => {
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
               Start Your Project
             </h2>
@@ -59,11 +66,18 @@ const ContactSection = () => {
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Let's bring your vision to life. Fill out the form below and our team will reach out to you shortly.
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 gap-12 items-start">
             {/* Contact Form */}
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <motion.form 
+              onSubmit={handleSubmit} 
+              className="space-y-6"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
               <div>
                 <label className="block text-sm font-medium mb-2 text-foreground">
                   Name *
@@ -143,10 +157,16 @@ const ContactSection = () => {
               >
                 Send Message
               </Button>
-            </form>
+            </motion.form>
 
             {/* Contact Information */}
-            <div className="space-y-8">
+            <motion.div 
+              className="space-y-8"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
               <div className="bg-background p-8 rounded-lg shadow-lg">
                 <h3 className="text-2xl font-semibold mb-6 text-foreground">Get in Touch</h3>
                 
@@ -205,7 +225,7 @@ const ContactSection = () => {
                 </svg>
                 Chat on WhatsApp
               </Button>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
