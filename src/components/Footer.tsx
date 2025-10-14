@@ -1,3 +1,5 @@
+import logo from '@/assets/vedic-logo.png';
+
 const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground py-12">
@@ -5,7 +7,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-12 mb-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-2xl font-display font-bold mb-4">Vedic Interiors</h3>
+            <img src={logo} alt="Vedic Interiors" className="h-16 w-auto mb-4" />
             <p className="text-primary-foreground/80 leading-relaxed mb-4">
               Creating inspiring environments through thoughtful design since 2015.
             </p>

@@ -1,27 +1,48 @@
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
-import residentialImg1 from '@/assets/project-residential-1.jpg';
-import corporateImg1 from '@/assets/project-corporate-1.jpg';
-import residentialImg2 from '@/assets/project-residential-2.jpg';
+import coworkingImg1 from '@/assets/project-coworking-1.jpg';
+import coworkingImg2 from '@/assets/project-coworking-2.jpg';
+import coworkingImg3 from '@/assets/project-coworking-3.jpg';
+import coworkingImg4 from '@/assets/project-coworking-4.jpg';
+import corporateOffice from '@/assets/project-corporate-office.jpg';
+import meetingRoom from '@/assets/project-meeting-room.jpg';
 
 const projects = [
   {
-    title: 'Modern Luxury Residence',
-    category: 'Residential',
-    image: residentialImg1,
-    description: 'Contemporary home design with warm wood tones and sophisticated finishes'
-  },
-  {
-    title: 'Corporate Office Space',
+    title: 'Co-Working Office - Game Zone',
     category: 'Corporate',
-    image: corporateImg1,
-    description: 'Professional workspace designed for productivity and collaboration'
+    image: coworkingImg1,
+    description: 'Modern co-working space with vibrant game zone and collaborative areas at Capital Park, Hyderabad'
   },
   {
-    title: 'Premium Kitchen Design',
-    category: 'Residential',
-    image: residentialImg2,
-    description: 'Elegant kitchen with custom cabinetry and modern appliances'
+    title: 'Co-Working Office - Recreation Area',
+    category: 'Corporate',
+    image: coworkingImg2,
+    description: 'Dynamic workspace featuring creative murals and multi-functional zones'
+  },
+  {
+    title: 'Co-Working Office - Cafeteria',
+    category: 'Corporate',
+    image: coworkingImg3,
+    description: 'Sophisticated cafeteria design with premium finishes and comfortable seating'
+  },
+  {
+    title: 'Co-Working Office - Gaming Zone',
+    category: 'Corporate',
+    image: coworkingImg4,
+    description: 'Entertainment area with billiards and chess tables for employee recreation'
+  },
+  {
+    title: 'Corporate Office Reception',
+    category: 'Corporate',
+    image: corporateOffice,
+    description: 'Modern reception area with creative seating and professional branding'
+  },
+  {
+    title: 'Executive Meeting Room',
+    category: 'Corporate',
+    image: meetingRoom,
+    description: 'Professional conference room with contemporary design elements'
   }
 ];
 
