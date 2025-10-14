@@ -1,7 +1,11 @@
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const HeroSection = () => {
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 500], [0, 150]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Video Background */}
@@ -15,16 +19,14 @@ const HeroSection = () => {
         >
           <source src="https://assets.mixkit.co/videos/preview/mixkit-modern-office-interior-with-wooden-furniture-50571-large.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/75 to-background/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/60" />
       </div>
 
       {/* Content */}
       <div className="container mx-auto px-6 relative z-10">
         <motion.div 
           className="max-w-3xl"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          style={{ y, opacity }}
         >
           <motion.h1 
             className="text-6xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 leading-tight"
@@ -52,19 +54,23 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <Button 
-              size="lg" 
-              className="text-lg px-8 py-6 bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              Book a Free Consultation
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              className="text-lg px-8 py-6 border-2 border-foreground/20 hover:border-accent hover:text-accent transition-all duration-300"
-            >
-              View Our Portfolio
-            </Button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button 
+                size="lg" 
+                className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground shadow-elegant hover:shadow-hover transition-all duration-300"
+              >
+                Book a Free Consultation
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button 
+                size="lg" 
+                variant="outline"
+                className="text-lg px-8 py-6 border-2 border-primary/30 hover:border-primary hover:bg-primary/10 transition-all duration-300"
+              >
+                View Our Portfolio
+              </Button>
+            </motion.div>
           </motion.div>
 
           <motion.div 
