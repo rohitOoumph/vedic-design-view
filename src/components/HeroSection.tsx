@@ -1,28 +1,25 @@
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import Hero3D from './Hero3D';
-import heroImage from '@/assets/project-coworking-1.jpg';
 
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background with gradient overlay */}
+      {/* Video Background */}
       <div className="absolute inset-0 z-0">
-        <img 
-          src={heroImage} 
-          alt="Luxury interior design showcase" 
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
           className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/60" />
-      </div>
-
-      {/* 3D Elements */}
-      <div className="absolute inset-0 z-10">
-        <Hero3D />
+        >
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-modern-office-interior-with-wooden-furniture-50571-large.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/75 to-background/50" />
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-6 relative z-20">
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div 
           className="max-w-3xl"
           initial={{ opacity: 0, y: 30 }}
