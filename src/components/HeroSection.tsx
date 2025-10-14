@@ -17,7 +17,7 @@ const HeroSection = () => {
           playsInline
           className="w-full h-full object-cover"
         >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-modern-office-interior-with-wooden-furniture-50571-large.mp4" type="video/mp4" />
+          <source src="/videos/hero-luxury-interior.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/60" />
       </div>
