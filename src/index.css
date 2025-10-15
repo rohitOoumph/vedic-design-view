@@ -19,93 +19,93 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Vedic Interiors Brand Colors */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 12%;
+    /* Vedic Interiors Premium Color Palette */
+    --background: 36 43% 97%; /* Soft Cream */
+    --foreground: 0 0% 16%; /* Rich Gray */
 
-    --card: 33 30% 94%;
-    --card-foreground: 0 0% 12%;
+    --card: 36 43% 97%;
+    --card-foreground: 0 0% 16%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 12%;
+    --popover: 36 43% 97%;
+    --popover-foreground: 0 0% 16%;
 
-    --primary: 26 40% 39%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 38 45% 64%; /* Muted Gold */
+    --primary-foreground: 0 0% 100%; /* Ivory White */
 
-    --secondary: 28 39% 62%;
-    --secondary-foreground: 0 0% 12%;
+    --secondary: 32 30% 78%; /* Dusty Taupe */
+    --secondary-foreground: 0 0% 16%;
 
-    --muted: 33 30% 94%;
+    --muted: 32 30% 78%;
     --muted-foreground: 0 0% 33%;
 
-    --accent: 28 39% 62%;
-    --accent-foreground: 0 0% 12%;
+    --accent: 38 45% 64%; /* Muted Gold */
+    --accent-foreground: 0 0% 7%; /* Charcoal Black */
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 33 20% 88%;
-    --input: 33 20% 88%;
-    --ring: 26 40% 39%;
+    --border: 32 20% 85%;
+    --input: 32 20% 85%;
+    --ring: 38 45% 64%;
 
     --radius: 0.75rem;
     
     /* Custom brand design tokens */
-    --gradient-brand: linear-gradient(135deg, hsl(26 40% 39%), hsl(28 39% 62%));
-    --gradient-secondary: linear-gradient(135deg, hsl(28 39% 62%), hsl(33 30% 94%));
-    --shadow-elegant: 0 10px 40px -10px hsl(26 40% 39% / 0.2);
-    --shadow-hover: 0 20px 60px -15px hsl(26 40% 39% / 0.3);
+    --gradient-brand: linear-gradient(135deg, hsl(38 45% 64%), hsl(32 30% 78%));
+    --gradient-secondary: linear-gradient(135deg, hsl(32 30% 78%), hsl(36 43% 97%));
+    --shadow-elegant: 0 10px 40px -10px hsl(38 45% 64% / 0.2);
+    --shadow-hover: 0 20px 60px -15px hsl(38 45% 64% / 0.3);
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-    --sidebar-background: 0 0% 98%;
+    --sidebar-background: 36 43% 97%;
 
-    --sidebar-foreground: 0 0% 12%;
+    --sidebar-foreground: 0 0% 16%;
 
-    --sidebar-primary: 26 40% 39%;
+    --sidebar-primary: 38 45% 64%;
 
-    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-primary-foreground: 0 0% 100%;
 
-    --sidebar-accent: 33 30% 94%;
+    --sidebar-accent: 32 30% 78%;
 
-    --sidebar-accent-foreground: 0 0% 12%;
+    --sidebar-accent-foreground: 0 0% 16%;
 
-    --sidebar-border: 33 20% 88%;
+    --sidebar-border: 32 20% 85%;
 
-    --sidebar-ring: 26 40% 39%;
+    --sidebar-ring: 38 45% 64%;
   }
 
   .dark {
-    --background: 0 0% 10%;
-    --foreground: 0 0% 96%;
+    --background: 0 0% 7%; /* Charcoal Black */
+    --foreground: 0 0% 100%; /* Ivory White */
 
-    --card: 0 0% 14%;
-    --card-foreground: 0 0% 96%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 10%;
-    --popover-foreground: 0 0% 96%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 26 40% 45%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 38 45% 64%; /* Muted Gold */
+    --primary-foreground: 0 0% 100%; /* Ivory White */
 
-    --secondary: 28 39% 62%;
+    --secondary: 32 30% 78%; /* Dusty Taupe */
     --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 20%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 28 39% 62%;
+    --accent: 38 45% 64%; /* Muted Gold */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62% 45%;
-    --destructive-foreground: 0 0% 96%;
+    --destructive-foreground: 0 0% 100%;
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 26 40% 45%;
+    --ring: 38 45% 64%;
     
-    --gradient-brand: linear-gradient(135deg, hsl(26 40% 45%), hsl(28 39% 62%));
-    --gradient-secondary: linear-gradient(135deg, hsl(28 39% 62%), hsl(33 30% 80%));
+    --gradient-brand: linear-gradient(135deg, hsl(38 45% 64%), hsl(32 30% 78%));
+    --gradient-secondary: linear-gradient(135deg, hsl(32 30% 78%), hsl(36 43% 97%));
   }
 }
 
