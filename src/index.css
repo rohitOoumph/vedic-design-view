@@ -19,97 +19,97 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Vedic Interiors Earth Tone Palette */
+    /* Fresh & Vibrant Color Palette */
     --background: 0 0% 100%; /* Pure White */
-    --foreground: 25 35% 16%; /* Dark Olive */
+    --foreground: 210 40% 15%; /* Deep Navy */
 
-    --card: 35 30% 81%; /* Soft Sand */
-    --card-foreground: 25 35% 16%;
+    --card: 200 30% 96%; /* Light Sky */
+    --card-foreground: 210 40% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 25 35% 16%;
+    --popover-foreground: 210 40% 15%;
 
-    --primary: 25 42% 29%; /* Earth Brown */
+    --primary: 190 85% 45%; /* Ocean Teal */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 35 30% 81%; /* Soft Sand */
-    --secondary-foreground: 25 35% 16%;
+    --secondary: 160 65% 92%; /* Mint Cream */
+    --secondary-foreground: 210 40% 15%;
 
-    --muted: 35 30% 81%;
-    --muted-foreground: 25 35% 35%;
+    --muted: 200 20% 90%;
+    --muted-foreground: 210 20% 40%;
 
-    --accent: 105 13% 44%; /* Forest Green */
+    --accent: 340 75% 60%; /* Coral Pink */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 35 30% 81%;
-    --input: 35 30% 81%;
-    --ring: 25 42% 29%;
+    --border: 200 20% 88%;
+    --input: 200 20% 88%;
+    --ring: 190 85% 45%;
 
     --radius: 0.75rem;
     
     /* Custom brand design tokens */
-    --highlight: 91 21% 45%; /* Sage Green */
-    --gradient-brand: linear-gradient(135deg, hsl(25 42% 29%), hsl(105 13% 44%));
-    --gradient-secondary: linear-gradient(135deg, hsl(35 30% 81%), hsl(91 21% 45%));
-    --gradient-warm: linear-gradient(135deg, hsl(25 42% 29%), hsl(35 30% 81%));
-    --shadow-elegant: 0 10px 40px -10px hsl(25 42% 29% / 0.25);
-    --shadow-hover: 0 20px 60px -15px hsl(25 42% 29% / 0.35);
+    --highlight: 170 70% 55%; /* Turquoise */
+    --gradient-brand: linear-gradient(135deg, hsl(190 85% 45%), hsl(340 75% 60%));
+    --gradient-secondary: linear-gradient(135deg, hsl(160 65% 92%), hsl(170 70% 55%));
+    --gradient-warm: linear-gradient(135deg, hsl(190 85% 45%), hsl(200 30% 96%));
+    --shadow-elegant: 0 10px 40px -10px hsl(190 85% 45% / 0.3);
+    --shadow-hover: 0 20px 60px -15px hsl(190 85% 45% / 0.4);
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-    --sidebar-background: 35 30% 81%;
+    --sidebar-background: 160 65% 92%;
 
-    --sidebar-foreground: 25 35% 16%;
+    --sidebar-foreground: 210 40% 15%;
 
-    --sidebar-primary: 25 42% 29%;
+    --sidebar-primary: 190 85% 45%;
 
     --sidebar-primary-foreground: 0 0% 100%;
 
-    --sidebar-accent: 105 13% 44%;
+    --sidebar-accent: 340 75% 60%;
 
     --sidebar-accent-foreground: 0 0% 100%;
 
-    --sidebar-border: 35 30% 81%;
+    --sidebar-border: 200 20% 88%;
 
-    --sidebar-ring: 25 42% 29%;
+    --sidebar-ring: 190 85% 45%;
   }
 
   .dark {
-    --background: 25 35% 16%; /* Dark Olive */
+    --background: 210 40% 12%; /* Deep Navy */
     --foreground: 0 0% 100%; /* Pure White */
 
-    --card: 25 35% 20%;
+    --card: 210 35% 18%;
     --card-foreground: 0 0% 100%;
 
-    --popover: 25 35% 16%;
+    --popover: 210 40% 12%;
     --popover-foreground: 0 0% 100%;
 
-    --primary: 25 42% 35%; /* Earth Brown - lighter */
+    --primary: 190 85% 55%; /* Ocean Teal - brighter */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 35 30% 81%; /* Soft Sand */
-    --secondary-foreground: 25 35% 16%;
+    --secondary: 160 65% 92%; /* Mint Cream */
+    --secondary-foreground: 210 40% 15%;
 
-    --muted: 25 35% 25%;
+    --muted: 210 30% 22%;
     --muted-foreground: 0 0% 70%;
 
-    --accent: 105 13% 50%; /* Forest Green - lighter */
+    --accent: 340 75% 65%; /* Coral Pink - brighter */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 25 35% 25%;
-    --input: 25 35% 25%;
-    --ring: 25 42% 35%;
+    --border: 210 30% 22%;
+    --input: 210 30% 22%;
+    --ring: 190 85% 55%;
     
-    --highlight: 91 21% 50%;
-    --gradient-brand: linear-gradient(135deg, hsl(25 42% 35%), hsl(105 13% 50%));
-    --gradient-secondary: linear-gradient(135deg, hsl(35 30% 81%), hsl(91 21% 50%));
-    --gradient-warm: linear-gradient(135deg, hsl(25 42% 35%), hsl(35 30% 81%));
+    --highlight: 170 70% 60%;
+    --gradient-brand: linear-gradient(135deg, hsl(190 85% 55%), hsl(340 75% 65%));
+    --gradient-secondary: linear-gradient(135deg, hsl(160 65% 92%), hsl(170 70% 60%));
+    --gradient-warm: linear-gradient(135deg, hsl(190 85% 55%), hsl(200 30% 96%));
   }
 }
 
