@@ -7,7 +7,11 @@ import logo from '@/assets/vedic-logo.png';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  
+  // Function to determine if a link is active
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/98 backdrop-blur-md border-b border-border shadow-sm">
@@ -18,31 +22,21 @@ const Navbar = () => {
             <img 
               src={logo} 
               alt="Vedic Interiors Logo" 
-              className="h-12 w-auto"
+              className="h-12 md:h-20 w-auto"
             />
           </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
-            {isHomePage ? (
               <>
-                <a href="#home" className="text-foreground hover:text-primary transition-colors">Home</a>
-                <a href="#about" className="text-foreground hover:text-primary transition-colors">About</a>
-                <a href="#services" className="text-foreground hover:text-primary transition-colors">Services</a>
-                <a href="#portfolio" className="text-foreground hover:text-primary transition-colors">Portfolio</a>
-                <a href="#testimonials" className="text-foreground hover:text-primary transition-colors">Testimonials</a>
+                <Link to="/" className={`transition-colors ${isActive('/') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Home</Link>
+                <Link to="/about" className={`transition-colors ${isActive('/about') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>About</Link>
+                <Link to="/services" className={`transition-colors ${isActive('/services') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Services</Link>
+                <Link to="/portfolio" className={`transition-colors ${isActive('/portfolio') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Portfolio</Link>
+                <Link to="/testimonials" className={`transition-colors ${isActive('/testimonials') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Testimonials</Link>
               </>
-            ) : (
-              <>
-                <Link to="/" className="text-foreground hover:text-primary transition-colors">Home</Link>
-                <Link to="/about" className="text-foreground hover:text-primary transition-colors">About</Link>
-                <Link to="/services" className="text-foreground hover:text-primary transition-colors">Services</Link>
-                <Link to="/portfolio" className="text-foreground hover:text-primary transition-colors">Portfolio</Link>
-                <Link to="/testimonials" className="text-foreground hover:text-primary transition-colors">Testimonials</Link>
-              </>
-            )}
             <Link to="/contact">
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button className={`${isActive('/contact') ? 'bg-primary/90' : 'bg-primary'} hover:bg-primary/90 text-primary-foreground`}>
                 Contact Us
               </Button>
             </Link>
@@ -60,25 +54,15 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden py-4 space-y-4">
-            {isHomePage ? (
               <>
-                <a href="#home" onClick={() => setIsOpen(false)} className="block text-foreground hover:text-primary transition-colors">Home</a>
-                <a href="#about" onClick={() => setIsOpen(false)} className="block text-foreground hover:text-primary transition-colors">About</a>
-                <a href="#services" onClick={() => setIsOpen(false)} className="block text-foreground hover:text-primary transition-colors">Services</a>
-                <a href="#portfolio" onClick={() => setIsOpen(false)} className="block text-foreground hover:text-primary transition-colors">Portfolio</a>
-                <a href="#testimonials" onClick={() => setIsOpen(false)} className="block text-foreground hover:text-primary transition-colors">Testimonials</a>
+                <Link to="/" onClick={() => setIsOpen(false)} className={`block transition-colors ${isActive('/') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Home</Link>
+                <Link to="/about" onClick={() => setIsOpen(false)} className={`block transition-colors ${isActive('/about') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>About</Link>
+                <Link to="/services" onClick={() => setIsOpen(false)} className={`block transition-colors ${isActive('/services') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Services</Link>
+                <Link to="/portfolio" onClick={() => setIsOpen(false)} className={`block transition-colors ${isActive('/portfolio') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Portfolio</Link>
+                <Link to="/testimonials" onClick={() => setIsOpen(false)} className={`block transition-colors ${isActive('/testimonials') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Testimonials</Link>
               </>
-            ) : (
-              <>
-                <Link to="/" onClick={() => setIsOpen(false)} className="block text-foreground hover:text-primary transition-colors">Home</Link>
-                <Link to="/about" onClick={() => setIsOpen(false)} className="block text-foreground hover:text-primary transition-colors">About</Link>
-                <Link to="/services" onClick={() => setIsOpen(false)} className="block text-foreground hover:text-primary transition-colors">Services</Link>
-                <Link to="/portfolio" onClick={() => setIsOpen(false)} className="block text-foreground hover:text-primary transition-colors">Portfolio</Link>
-                <Link to="/testimonials" onClick={() => setIsOpen(false)} className="block text-foreground hover:text-primary transition-colors">Testimonials</Link>
-              </>
-            )}
             <Link to="/contact" onClick={() => setIsOpen(false)}>
-              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button className={`w-full ${isActive('/contact') ? 'bg-primary/90' : 'bg-primary'} hover:bg-primary/90 text-primary-foreground`}>
                 Contact Us
               </Button>
             </Link>

@@ -11,7 +11,7 @@ const HeroSection = () => {
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video 
