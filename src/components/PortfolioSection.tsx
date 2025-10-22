@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { motion, AnimatePresence } from 'framer-motion';
 import coworkingImg1 from '@/assets/project-coworking-1.jpg';
@@ -145,13 +146,15 @@ const PortfolioSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <motion.button 
-            className="px-8 py-4 bg-accent text-accent-foreground rounded-full hover:shadow-xl transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            View Complete Portfolio
-          </motion.button>
+          <Link to="/portfolio">
+            <motion.button 
+              className="px-8 py-4 bg-accent text-accent-foreground rounded-full hover:shadow-xl transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              View Complete Portfolio
+            </motion.button>
+          </Link>
         </motion.div>
       </div>
     </section>

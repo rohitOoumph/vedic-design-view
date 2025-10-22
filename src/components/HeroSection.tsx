@@ -1,7 +1,11 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import ConsultationDialog from './ConsultationDialog';
 
 const HeroSection = () => {
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
@@ -58,18 +62,21 @@ const HeroSection = () => {
               <Button 
                 size="lg" 
                 className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground shadow-elegant hover:shadow-hover transition-all duration-300"
+                onClick={() => setIsConsultationOpen(true)}
               >
                 Book a Free Consultation
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="text-lg px-8 py-6 border-2 border-primary/30 hover:border-primary hover:bg-primary/10 transition-all duration-300"
-              >
-                View Our Portfolio
-              </Button>
+              <Link to="/portfolio">
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  className="text-lg px-8 py-6 border-2 border-primary/30 hover:border-primary hover:bg-primary/10 transition-all duration-300"
+                >
+                  View Our Portfolio
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
 
@@ -96,6 +103,11 @@ const HeroSection = () => {
           </motion.div>
         </motion.div>
       </div>
+
+      <ConsultationDialog 
+        open={isConsultationOpen} 
+        onOpenChange={setIsConsultationOpen} 
+      />
     </section>
   );
 };
