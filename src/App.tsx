@@ -24,6 +24,8 @@ const FAQsPage = lazy(() => import("./cms/admin/pages/FAQsPage").then(m => ({ de
 const LeadsPage = lazy(() => import("./cms/admin/pages/LeadsPage").then(m => ({ default: m.LeadsPage })));
 const NavLinksPage = lazy(() => import("./cms/admin/pages/NavLinksPage").then(m => ({ default: m.NavLinksPage })));
 const SettingsPage = lazy(() => import("./cms/admin/pages/SettingsPage").then(m => ({ default: m.SettingsPage })));
+const MediaLibraryPage = lazy(() => import("./cms/admin/pages/MediaLibraryPage").then(m => ({ default: m.MediaLibraryPage })));
+const UserRolesPage = lazy(() => import("./cms/admin/pages/UserRolesPage").then(m => ({ default: m.UserRolesPage })));
 
 const App = () => (
   <TooltipProvider>
@@ -100,6 +102,20 @@ const App = () => (
             <ProtectedRoute>
               <AdminLayout>
                 <SettingsPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/media" element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <MediaLibraryPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/roles" element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <UserRolesPage />
               </AdminLayout>
             </ProtectedRoute>
           } />

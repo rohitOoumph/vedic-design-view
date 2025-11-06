@@ -57,6 +57,8 @@ const ServiceBenefitsSection = () => {
               src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&h=600&fit=crop"
               alt="Service benefits"
               className="rounded-lg shadow-elegant"
+              loading="lazy"
+              decoding="async"
             />
             <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-accent/10 rounded-lg -z-10" />
           </motion.div>

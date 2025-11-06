@@ -29,6 +29,7 @@ const Navbar = () => {
               src={logo} 
               alt={`${brandName} Logo`}
               className="h-12 md:h-20 w-auto"
+              loading="eager"
             />
           </Link>
 

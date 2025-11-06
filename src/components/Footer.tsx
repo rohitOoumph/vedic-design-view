@@ -20,7 +20,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-12 mb-8">
           {/* Company Info */}
           <div>
-            <img src={logo} alt={brandName} className="h-16 w-auto mb-4" />
+            <img src={logo} alt={brandName} className="h-16 w-auto mb-4" loading="lazy" decoding="async" />
             <p className="text-primary-foreground/80 leading-relaxed mb-4">
               Creating inspiring environments through thoughtful design since 2015.
             </p>

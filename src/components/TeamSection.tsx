@@ -62,6 +62,8 @@ const TeamSection = () => {
                   src={member.image}
                   alt={member.name}
                   className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
                   <a href="#" className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-primary-foreground hover:scale-110 transition-transform">

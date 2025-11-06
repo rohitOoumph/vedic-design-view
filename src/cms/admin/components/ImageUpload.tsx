@@ -60,6 +60,8 @@ export const ImageUpload = ({
               src={value}
               alt="Preview"
               className="w-full h-48 object-cover rounded-lg border"
+              loading="lazy"
+              decoding="async"
               style={{ aspectRatio }}
             />
             <Button

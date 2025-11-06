@@ -91,6 +91,8 @@ const PortfolioSection = () => {
                       src={project.cover_image_url || '/placeholder.svg'} 
                       alt={project.title}
                       className="w-full h-80 object-cover"
+                      loading="lazy"
+                      decoding="async"
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.7 }}
                     />

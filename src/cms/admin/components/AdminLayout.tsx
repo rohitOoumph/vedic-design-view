@@ -10,7 +10,9 @@ import {
   Settings, 
   Menu,
   LogOut,
-  Users
+  Users,
+  Image,
+  Shield
 } from "lucide-react";
 import { signOut } from "@/cms/hooks/useAuth";
 import { toast } from "sonner";
@@ -28,6 +30,8 @@ const navItems = [
   { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquare },
   { href: "/admin/faqs", label: "FAQs", icon: HelpCircle },
   { href: "/admin/leads", label: "Leads", icon: Users },
+  { href: "/admin/media", label: "Media Library", icon: Image },
+  { href: "/admin/roles", label: "User Roles", icon: Shield },
   { href: "/admin/nav-links", label: "Navigation", icon: Menu },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
