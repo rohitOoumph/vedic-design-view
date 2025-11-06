@@ -103,23 +103,55 @@ function MyComponent() {
 ## Next Steps
 
 1. **Run the seed data SQL** in Supabase SQL Editor
+
 2. **Add Storage Buckets** (optional):
    - Create `media` bucket for images/videos
    - Create `models` bucket for 3D files (.glb/.gltf)
    
 3. **Create Admin User**:
-   - Sign up a user via Supabase Auth
-   - Run this SQL to make them admin:
+   - Go to Supabase Dashboard → Authentication → Users
+   - Click "Add user" → "Create new user"
+   - Email: `admin@vedicinteriors.com`
+   - Password: Create a secure password
+   - Enable "Auto Confirm User"
+   - Run this SQL to assign admin role:
    ```sql
+   -- Replace 'user-uuid-here' with actual user ID from auth.users
    INSERT INTO public.user_roles (user_id, role)
    VALUES ('user-uuid-here', 'admin');
    ```
 
-4. **Build Admin Panel** (Phase 2):
-   - Create `/admin` routes
-   - Build CRUD interfaces for content management
-   - Add media upload functionality
-   - Implement lead management dashboard
+4. **Access Admin Panel**:
+   - Navigate to `/admin/login`
+   - Sign in with admin credentials
+   - You'll be redirected to `/admin` dashboard
+
+## Admin Panel
+
+### Admin Routes
+- `/admin` - Dashboard with stats and overview
+- `/admin/services` - Manage services (CRUD)
+- `/admin/projects` - Manage projects (CRUD) - Coming soon
+- `/admin/testimonials` - Manage testimonials (CRUD) - Coming soon
+- `/admin/faqs` - Manage FAQs (CRUD) - Coming soon
+- `/admin/leads` - View consultation requests
+- `/admin/settings` - Site settings - Coming soon
+
+### Features Implemented
+✅ Authentication with Supabase Auth  
+✅ Protected routes with role-based access  
+✅ Dashboard with content statistics  
+✅ Services list view  
+✅ Leads management view  
+✅ Responsive admin layout with sidebar  
+
+### Features Coming Soon
+⏳ Full CRUD for all content types  
+⏳ Image upload to Supabase Storage  
+⏳ Drag-and-drop ordering  
+⏳ Rich text editor for descriptions  
+⏳ Bulk actions  
+⏳ Export/import functionality
 
 ## Content Management Workflow
 
