@@ -1,15 +1,35 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import { Building2, Home, Store, Sparkles } from 'lucide-react';
+import { useProjects } from '@/cms/hooks/useContent';
 
-const PortfolioCategoriesSection = () => {
-  const [activeCategory, setActiveCategory] = useState('all');
+interface PortfolioCategoriesSectionProps {
+  activeCategory: string;
+  onCategoryChange: (category: string) => void;
+}
 
+const PortfolioCategoriesSection = ({ activeCategory, onCategoryChange }: PortfolioCategoriesSectionProps) => {
+  const { data: projectsData } = useProjects({});
+  const projects = projectsData || [];
+  
+  // Extract unique categories from projects
+  const dbCategories = Array.from(new Set(projects.map(p => p.category).filter(Boolean)));
+  
+  // Icon mapping helper
+  const getIconForCategory = (category: string) => {
+    const lowerCat = category.toLowerCase();
+    if (lowerCat.includes('residential')) return Home;
+    if (lowerCat.includes('corporate') || lowerCat.includes('commercial') || lowerCat.includes('coworking')) return Building2;
+    return Store;
+  };
+  
+  // Build categories array with icons
   const categories = [
-    { id: 'all', name: 'All Projects', icon: Sparkles },
-    { id: 'residential', name: 'Residential', icon: Home },
-    { id: 'commercial', name: 'Commercial', icon: Building2 },
-    { id: 'retail', name: 'Retail', icon: Store }
+    { id: 'All', name: 'All Projects', icon: Sparkles },
+    ...dbCategories.map(cat => ({
+      id: cat,
+      name: cat,
+      icon: getIconForCategory(cat)
+    }))
   ];
 
   const stats = [
@@ -41,7 +61,7 @@ const PortfolioCategoriesSection = () => {
             {categories.map((category) => (
               <motion.button
                 key={category.id}
-                onClick={() => setActiveCategory(category.id)}
+                onClick={() => onCategoryChange(category.id)}
                 className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 ${
                   activeCategory === category.id
                     ? 'bg-accent text-primary-foreground shadow-elegant'

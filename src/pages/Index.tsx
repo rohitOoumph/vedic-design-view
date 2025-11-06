@@ -26,7 +26,7 @@ const Index = () => {
       </div>
       <ProcessSection />
       <div id="portfolio">
-        <PortfolioSection />
+        <PortfolioSection showTitle={true} limit={6} />
       </div>
       <div id="testimonials">
         <TestimonialsSection />
