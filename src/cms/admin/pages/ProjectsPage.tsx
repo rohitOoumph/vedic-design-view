@@ -13,9 +13,15 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { ProjectFormDialog } from "../components/ProjectFormDialog";
+import { Database } from "@/integrations/supabase/types";
+
+type Project = Database["public"]["Tables"]["projects"]["Row"];
 
 export const ProjectsPage = () => {
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const { data: projects, isLoading, refetch } = useQuery({
     queryKey: ["admin-projects"],
@@ -49,6 +55,16 @@ export const ProjectsPage = () => {
     }
   };
 
+  const handleEdit = (project: Project) => {
+    setSelectedProject(project);
+    setIsFormOpen(true);
+  };
+
+  const handleCreate = () => {
+    setSelectedProject(null);
+    setIsFormOpen(true);
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -64,7 +80,7 @@ export const ProjectsPage = () => {
           <h1 className="text-3xl font-bold">Projects</h1>
           <p className="text-muted-foreground">Manage portfolio projects</p>
         </div>
-        <Button>
+        <Button onClick={handleCreate}>
           <Plus className="mr-2 h-4 w-4" />
           Add Project
         </Button>
@@ -102,7 +118,7 @@ export const ProjectsPage = () => {
                 <TableCell>{project.order_index}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
-                    <Button variant="ghost" size="icon">
+                    <Button variant="ghost" size="icon" onClick={() => handleEdit(project)}>
                       <Pencil className="h-4 w-4" />
                     </Button>
                     <Button
@@ -120,6 +136,16 @@ export const ProjectsPage = () => {
           </TableBody>
         </Table>
       </div>
+
+      <ProjectFormDialog
+        open={isFormOpen}
+        onOpenChange={setIsFormOpen}
+        project={selectedProject}
+        onSuccess={() => {
+          refetch();
+          setIsFormOpen(false);
+        }}
+      />
     </div>
   );
 };
