@@ -3,10 +3,16 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import logo from '@/assets/vedic-logo.png';
+import { useNavLinks, useSettings } from '@/cms/hooks/useContent';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { data: navLinks } = useNavLinks();
+  const { data: settings } = useSettings();
+  
+  const links = navLinks || [];
+  const brandName = settings?.brand_name || 'Vedic Interiors';
   
   // Function to determine if a link is active
   const isActive = (path: string) => {
@@ -21,25 +27,22 @@ const Navbar = () => {
           <Link to="/" className="flex items-center">
             <img 
               src={logo} 
-              alt="Vedic Interiors Logo" 
+              alt={`${brandName} Logo`}
               className="h-12 md:h-20 w-auto"
             />
           </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
-              <>
-                <Link to="/" className={`transition-colors ${isActive('/') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Home</Link>
-                <Link to="/about" className={`transition-colors ${isActive('/about') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>About</Link>
-                <Link to="/services" className={`transition-colors ${isActive('/services') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Services</Link>
-                <Link to="/portfolio" className={`transition-colors ${isActive('/portfolio') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Portfolio</Link>
-                <Link to="/testimonials" className={`transition-colors ${isActive('/testimonials') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Testimonials</Link>
-              </>
-            <Link to="/contact">
-              <Button className={`${isActive('/contact') ? 'bg-primary/90' : 'bg-primary'} hover:bg-primary/90 text-primary-foreground`}>
-                Contact Us
-              </Button>
-            </Link>
+            {links.map((link) => (
+              <Link 
+                key={link.id}
+                to={link.href} 
+                className={`transition-colors ${isActive(link.href) ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
 
           {/* Mobile Menu Button */}
@@ -54,18 +57,16 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden py-4 space-y-4">
-              <>
-                <Link to="/" onClick={() => setIsOpen(false)} className={`block transition-colors ${isActive('/') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Home</Link>
-                <Link to="/about" onClick={() => setIsOpen(false)} className={`block transition-colors ${isActive('/about') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>About</Link>
-                <Link to="/services" onClick={() => setIsOpen(false)} className={`block transition-colors ${isActive('/services') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Services</Link>
-                <Link to="/portfolio" onClick={() => setIsOpen(false)} className={`block transition-colors ${isActive('/portfolio') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Portfolio</Link>
-                <Link to="/testimonials" onClick={() => setIsOpen(false)} className={`block transition-colors ${isActive('/testimonials') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}>Testimonials</Link>
-              </>
-            <Link to="/contact" onClick={() => setIsOpen(false)}>
-              <Button className={`w-full ${isActive('/contact') ? 'bg-primary/90' : 'bg-primary'} hover:bg-primary/90 text-primary-foreground`}>
-                Contact Us
-              </Button>
-            </Link>
+            {links.map((link) => (
+              <Link 
+                key={link.id}
+                to={link.href} 
+                onClick={() => setIsOpen(false)} 
+                className={`block transition-colors ${isActive(link.href) ? 'text-primary font-medium' : 'text-foreground hover:text-primary'}`}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
         )}
       </div>

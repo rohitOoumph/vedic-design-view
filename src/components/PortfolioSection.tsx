@@ -2,59 +2,33 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { motion, AnimatePresence } from 'framer-motion';
-import coworkingImg1 from '@/assets/project-coworking-1.jpg';
-import coworkingImg2 from '@/assets/project-coworking-2.jpg';
-import coworkingImg3 from '@/assets/project-coworking-3.jpg';
-import coworkingImg4 from '@/assets/project-coworking-4.jpg';
-import corporateOffice from '@/assets/project-corporate-office.jpg';
-import meetingRoom from '@/assets/project-meeting-room.jpg';
-
-const projects = [
-  {
-    title: 'Co-Working Office - Game Zone',
-    category: 'Corporate',
-    image: coworkingImg1,
-    description: 'Modern co-working space with vibrant game zone and collaborative areas at Capital Park, Hyderabad'
-  },
-  {
-    title: 'Co-Working Office - Recreation Area',
-    category: 'Corporate',
-    image: coworkingImg2,
-    description: 'Dynamic workspace featuring creative murals and multi-functional zones'
-  },
-  {
-    title: 'Co-Working Office - Cafeteria',
-    category: 'Corporate',
-    image: coworkingImg3,
-    description: 'Sophisticated cafeteria design with premium finishes and comfortable seating'
-  },
-  {
-    title: 'Co-Working Office - Gaming Zone',
-    category: 'Corporate',
-    image: coworkingImg4,
-    description: 'Entertainment area with billiards and chess tables for employee recreation'
-  },
-  {
-    title: 'Corporate Office Reception',
-    category: 'Corporate',
-    image: corporateOffice,
-    description: 'Modern reception area with creative seating and professional branding'
-  },
-  {
-    title: 'Executive Meeting Room',
-    category: 'Corporate',
-    image: meetingRoom,
-    description: 'Professional conference room with contemporary design elements'
-  }
-];
+import { useProjects } from '@/cms/hooks/useContent';
 
 const PortfolioSection = () => {
   const [activeCategory, setActiveCategory] = useState('All');
-  const categories = ['All', 'Residential', 'Corporate'];
+  const { data: projectsData, isLoading } = useProjects({ featured: true, limit: 6 });
+  const projects = projectsData || [];
+  
+  const categories = ['All', ...Array.from(new Set(projects.map(p => p.category).filter(Boolean)))];
 
   const filteredProjects = activeCategory === 'All' 
     ? projects 
     : projects.filter(p => p.category === activeCategory);
+
+  if (isLoading) {
+    return (
+      <section className="py-24 bg-card">
+        <div className="container mx-auto px-6">
+          <div className="text-center">
+            <div className="animate-pulse">
+              <div className="h-12 bg-muted rounded w-64 mx-auto mb-4" />
+              <div className="h-6 bg-muted rounded w-96 mx-auto" />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-24 bg-card">
@@ -105,7 +79,7 @@ const PortfolioSection = () => {
           >
             {filteredProjects.map((project, index) => (
               <motion.div
-                key={index}
+                key={project.id}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -114,7 +88,7 @@ const PortfolioSection = () => {
                 <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 border-0">
                   <div className="relative overflow-hidden">
                     <motion.img 
-                      src={project.image} 
+                      src={project.cover_image_url || '/placeholder.svg'} 
                       alt={project.title}
                       className="w-full h-80 object-cover"
                       whileHover={{ scale: 1.1 }}
@@ -122,14 +96,16 @@ const PortfolioSection = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                      <span className="inline-block px-3 py-1 bg-accent text-accent-foreground text-sm rounded-full mb-3">
-                        {project.category}
-                      </span>
+                      {project.category && (
+                        <span className="inline-block px-3 py-1 bg-accent text-accent-foreground text-sm rounded-full mb-3">
+                          {project.category}
+                        </span>
+                      )}
                       <h3 className="text-2xl font-semibold mb-2">
                         {project.title}
                       </h3>
                       <p className="text-white/90 text-sm">
-                        {project.description}
+                        {project.short_desc}
                       </p>
                     </div>
                   </div>

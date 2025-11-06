@@ -3,12 +3,18 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import ConsultationDialog from './ConsultationDialog';
+import { useSettings } from '@/cms/hooks/useContent';
 
 const HeroSection = () => {
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  
+  const { data: settings } = useSettings();
+  const headline = settings?.hero_headline || 'Premium Interiors for Homes & Offices';
+  const subtext = settings?.hero_subtext || 'Creating inspiring environments through thoughtful design, quality execution, and client-centric solutions since 2015.';
+  const ctaLabel = settings?.hero_cta_label || 'Book a Free Consultation';
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
@@ -38,8 +44,14 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Premium Interiors for{' '}
-            <span className="text-accent">Homes & Offices</span>
+            {headline.split(' ').map((word, i, arr) => {
+              const isLastTwo = i >= arr.length - 2;
+              return (
+                <span key={i} className={isLastTwo ? 'text-accent' : ''}>
+                  {word}{' '}
+                </span>
+              );
+            })}
           </motion.h1>
           
           <motion.p 
@@ -48,8 +60,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Creating inspiring environments through thoughtful design, quality execution, 
-            and client-centric solutions since 2015.
+            {subtext}
           </motion.p>
 
           <motion.div 
@@ -64,7 +75,7 @@ const HeroSection = () => {
                 className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground shadow-elegant hover:shadow-hover transition-all duration-300"
                 onClick={() => setIsConsultationOpen(true)}
               >
-                Book a Free Consultation
+                {ctaLabel}
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

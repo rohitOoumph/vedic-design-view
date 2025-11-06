@@ -1,31 +1,11 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { motion } from 'framer-motion';
-
-const testimonials = [
-  {
-    name: 'Rajesh Kumar',
-    designation: 'Homeowner',
-    project: 'Luxury Villa Interior',
-    content: 'Vedic Interiors transformed our house into a dream home. Their attention to detail and understanding of our lifestyle needs was exceptional. The team delivered exactly what we envisioned, on time and within budget.',
-    rating: 5
-  },
-  {
-    name: 'Priya Sharma',
-    designation: 'CEO, Tech Solutions Inc.',
-    project: 'Corporate Office Design',
-    content: 'Our new office space has become a source of inspiration for our team. Vedic Interiors created a perfect blend of functionality and aesthetics that truly reflects our brand identity. Highly recommended!',
-    rating: 5
-  },
-  {
-    name: 'Amit Patel',
-    designation: 'Restaurant Owner',
-    project: 'Commercial Interior',
-    content: 'Working with Vedic Interiors was a pleasure from start to finish. Their creative approach and professional execution helped us create a unique dining experience for our customers. Exceptional work!',
-    rating: 5
-  }
-];
+import { useTestimonials } from '@/cms/hooks/useContent';
 
 const TestimonialsSection = () => {
+  const { data: testimonialsData, isLoading } = useTestimonials(3);
+  const testimonials = testimonialsData || [];
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -43,6 +23,21 @@ const TestimonialsSection = () => {
       y: 0
     }
   };
+
+  if (isLoading) {
+    return (
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-6">
+          <div className="text-center">
+            <div className="animate-pulse">
+              <div className="h-12 bg-muted rounded w-64 mx-auto mb-4" />
+              <div className="h-6 bg-muted rounded w-96 mx-auto" />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-24 bg-background">
@@ -71,12 +66,12 @@ const TestimonialsSection = () => {
           viewport={{ once: true }}
         >
           {testimonials.map((testimonial, index) => (
-            <motion.div key={index} variants={itemVariants}>
+            <motion.div key={testimonial.id} variants={itemVariants}>
               <Card className="h-full hover:shadow-xl transition-all duration-300 border-border bg-card">
                 <CardContent className="p-8">
                   {/* Star rating */}
                   <div className="flex gap-1 mb-6">
-                    {[...Array(testimonial.rating)].map((_, i) => (
+                    {[...Array(testimonial.rating || 5)].map((_, i) => (
                       <svg 
                         key={i}
                         className="w-5 h-5 text-accent fill-current"
@@ -88,19 +83,24 @@ const TestimonialsSection = () => {
                   </div>
 
                   <p className="text-muted-foreground leading-relaxed mb-6 italic">
-                    "{testimonial.content}"
+                    "{testimonial.quote}"
                   </p>
 
                   <div className="pt-6 border-t border-border">
                     <h4 className="font-semibold text-foreground text-lg">
-                      {testimonial.name}
+                      {testimonial.client_name}
                     </h4>
-                    <p className="text-sm text-muted-foreground">
-                      {testimonial.designation}
-                    </p>
-                    <p className="text-xs text-accent mt-1">
-                      {testimonial.project}
-                    </p>
+                    {testimonial.designation && (
+                      <p className="text-sm text-muted-foreground">
+                        {testimonial.designation}
+                        {testimonial.company && `, ${testimonial.company}`}
+                      </p>
+                    )}
+                    {testimonial.project_type && (
+                      <p className="text-xs text-accent mt-1">
+                        {testimonial.project_type}
+                      </p>
+                    )}
                   </div>
                 </CardContent>
               </Card>
