@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import logo from '@/assets/vedic-logo.png';
 import { useNavLinks, useSettings } from '@/cms/hooks/useContent';
@@ -44,6 +44,13 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            <Link 
+              to="/admin/login" 
+              className="text-muted-foreground hover:text-primary transition-colors"
+              aria-label="Admin Login"
+            >
+              <Lock size={18} />
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
