@@ -5,11 +5,24 @@ Your site now has a complete CMS backend powered by Supabase with secure RLS pol
 
 ## Environment Setup
 
-1. Create a `.env` file in your project root (use `.env.example` as template):
+**IMPORTANT**: Never commit `.env` to Git. It's already in `.gitignore`.
+
+1. Copy `.env.example` to `.env`:
+```bash
+cp .env.example .env
+```
+
+2. Get your Supabase credentials from your Supabase project dashboard:
+   - Navigate to Settings → API
+   - Copy the Project URL and anon (public) key
+
+3. Update `.env` with your credentials:
 ```env
-VITE_SUPABASE_URL=https://fqwajzaiqvvejzjzayvk.supabase.co
+VITE_SUPABASE_URL=https://your-project-ref.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key-here
 ```
+
+**Security Note**: The Supabase ANON key is designed to be public and is protected by Row Level Security (RLS) policies. However, never commit private keys or service account keys to Git.
 
 ## Seed Data
 
