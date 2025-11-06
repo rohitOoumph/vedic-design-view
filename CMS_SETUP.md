@@ -130,23 +130,27 @@ function MyComponent() {
 
 ### Admin Routes
 - `/admin` - Dashboard with stats and overview
-- `/admin/services` - Manage services (CRUD)
-- `/admin/projects` - Manage projects (CRUD) - Coming soon
-- `/admin/testimonials` - Manage testimonials (CRUD) - Coming soon
-- `/admin/faqs` - Manage FAQs (CRUD) - Coming soon
+- `/admin/services` - Manage services (list with delete)
+- `/admin/projects` - Manage projects (list with delete)
+- `/admin/testimonials` - Manage testimonials (list with delete)
+- `/admin/faqs` - Manage FAQs (list with delete)
 - `/admin/leads` - View consultation requests
-- `/admin/settings` - Site settings - Coming soon
+- `/admin/settings` - Site settings (full CRUD)
 
 ### Features Implemented
 ✅ Authentication with Supabase Auth  
 ✅ Protected routes with role-based access  
 ✅ Dashboard with content statistics  
-✅ Services list view  
-✅ Leads management view  
+✅ Services management (list view with delete)
+✅ Projects management (list view with delete)
+✅ Testimonials management (list view with delete)
+✅ FAQs management (list view with delete)
+✅ Leads management (list view)
+✅ Site Settings management (full CRUD)
 ✅ Responsive admin layout with sidebar  
 
 ### Features Coming Soon
-⏳ Full CRUD for all content types  
+⏳ Full CRUD forms for Services, Projects, Testimonials, FAQs
 ⏳ Image upload to Supabase Storage  
 ⏳ Drag-and-drop ordering  
 ⏳ Rich text editor for descriptions  

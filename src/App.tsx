@@ -18,7 +18,11 @@ const AdminLayout = lazy(() => import("./cms/admin/components/AdminLayout").then
 const ProtectedRoute = lazy(() => import("./cms/admin/components/ProtectedRoute").then(m => ({ default: m.ProtectedRoute })));
 const DashboardPage = lazy(() => import("./cms/admin/pages/DashboardPage").then(m => ({ default: m.DashboardPage })));
 const ServicesPage = lazy(() => import("./cms/admin/pages/ServicesPage").then(m => ({ default: m.ServicesPage })));
+const ProjectsPage = lazy(() => import("./cms/admin/pages/ProjectsPage").then(m => ({ default: m.ProjectsPage })));
+const TestimonialsPage = lazy(() => import("./cms/admin/pages/TestimonialsPage").then(m => ({ default: m.TestimonialsPage })));
+const FAQsPage = lazy(() => import("./cms/admin/pages/FAQsPage").then(m => ({ default: m.FAQsPage })));
 const LeadsPage = lazy(() => import("./cms/admin/pages/LeadsPage").then(m => ({ default: m.LeadsPage })));
+const SettingsPage = lazy(() => import("./cms/admin/pages/SettingsPage").then(m => ({ default: m.SettingsPage })));
 
 const App = () => (
   <TooltipProvider>
@@ -56,10 +60,38 @@ const App = () => (
               </AdminLayout>
             </ProtectedRoute>
           } />
+          <Route path="/admin/projects" element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <ProjectsPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/testimonials" element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <TestimonialsPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/faqs" element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <FAQsPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
           <Route path="/admin/leads" element={
             <ProtectedRoute>
               <AdminLayout>
                 <LeadsPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/settings" element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <SettingsPage />
               </AdminLayout>
             </ProtectedRoute>
           } />
