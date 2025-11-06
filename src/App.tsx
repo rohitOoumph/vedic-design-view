@@ -22,6 +22,7 @@ const ProjectsPage = lazy(() => import("./cms/admin/pages/ProjectsPage").then(m 
 const TestimonialsPage = lazy(() => import("./cms/admin/pages/TestimonialsPage").then(m => ({ default: m.TestimonialsPage })));
 const FAQsPage = lazy(() => import("./cms/admin/pages/FAQsPage").then(m => ({ default: m.FAQsPage })));
 const LeadsPage = lazy(() => import("./cms/admin/pages/LeadsPage").then(m => ({ default: m.LeadsPage })));
+const NavLinksPage = lazy(() => import("./cms/admin/pages/NavLinksPage").then(m => ({ default: m.NavLinksPage })));
 const SettingsPage = lazy(() => import("./cms/admin/pages/SettingsPage").then(m => ({ default: m.SettingsPage })));
 
 const App = () => (
@@ -85,6 +86,13 @@ const App = () => (
             <ProtectedRoute>
               <AdminLayout>
                 <LeadsPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/nav-links" element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <NavLinksPage />
               </AdminLayout>
             </ProtectedRoute>
           } />

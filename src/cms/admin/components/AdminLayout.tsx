@@ -28,6 +28,7 @@ const navItems = [
   { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquare },
   { href: "/admin/faqs", label: "FAQs", icon: HelpCircle },
   { href: "/admin/leads", label: "Leads", icon: Users },
+  { href: "/admin/nav-links", label: "Navigation", icon: Menu },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 

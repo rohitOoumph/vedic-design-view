@@ -10,6 +10,22 @@ import {
   getFAQs,
 } from "../adapters/content";
 
+// Optimized query options for better performance
+const queryOptions = {
+  staleTime: 5 * 60 * 1000, // 5 minutes - data stays fresh
+  gcTime: 10 * 60 * 1000, // 10 minutes - garbage collection
+  refetchOnWindowFocus: false, // Prevent unnecessary refetches
+  refetchOnMount: false, // Only refetch if stale
+};
+
+// Settings and nav links change rarely, cache longer
+const staticQueryOptions = {
+  staleTime: 15 * 60 * 1000, // 15 minutes
+  gcTime: 30 * 60 * 1000, // 30 minutes
+  refetchOnWindowFocus: false,
+  refetchOnMount: false,
+};
+
 // ========================================
 // SITE SETTINGS
 // ========================================
@@ -17,7 +33,7 @@ export const useSettings = () => {
   return useQuery({
     queryKey: ["site-settings"],
     queryFn: getSettings,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    ...staticQueryOptions,
   });
 };
 
@@ -28,7 +44,7 @@ export const useNavLinks = () => {
   return useQuery({
     queryKey: ["nav-links"],
     queryFn: getNavLinks,
-    staleTime: 5 * 60 * 1000,
+    ...staticQueryOptions,
   });
 };
 
@@ -39,7 +55,7 @@ export const useServices = (options?: { featured?: boolean }) => {
   return useQuery({
     queryKey: ["services", options],
     queryFn: () => getServices(options),
-    staleTime: 5 * 60 * 1000,
+    ...queryOptions,
   });
 };
 
@@ -47,7 +63,7 @@ export const useServiceBySlug = (slug: string) => {
   return useQuery({
     queryKey: ["service", slug],
     queryFn: () => getServiceBySlug(slug),
-    staleTime: 5 * 60 * 1000,
+    ...queryOptions,
     enabled: !!slug,
   });
 };
@@ -63,7 +79,7 @@ export const useProjects = (options?: {
   return useQuery({
     queryKey: ["projects", options],
     queryFn: () => getProjects(options),
-    staleTime: 5 * 60 * 1000,
+    ...queryOptions,
   });
 };
 
@@ -71,7 +87,7 @@ export const useProjectBySlug = (slug: string) => {
   return useQuery({
     queryKey: ["project", slug],
     queryFn: () => getProjectBySlug(slug),
-    staleTime: 5 * 60 * 1000,
+    ...queryOptions,
     enabled: !!slug,
   });
 };
@@ -83,7 +99,7 @@ export const useTestimonials = (limit?: number) => {
   return useQuery({
     queryKey: ["testimonials", limit],
     queryFn: () => getTestimonials(limit),
-    staleTime: 5 * 60 * 1000,
+    ...queryOptions,
   });
 };
 
@@ -94,6 +110,6 @@ export const useFAQs = (category?: string) => {
   return useQuery({
     queryKey: ["faqs", category],
     queryFn: () => getFAQs(category),
-    staleTime: 5 * 60 * 1000,
+    ...queryOptions,
   });
 };

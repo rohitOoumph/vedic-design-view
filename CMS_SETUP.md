@@ -130,32 +130,44 @@ function MyComponent() {
 
 ### Admin Routes
 - `/admin` - Dashboard with stats and overview
-- `/admin/services` - Manage services (list with delete)
-- `/admin/projects` - Manage projects (list with delete)
-- `/admin/testimonials` - Manage testimonials (list with delete)
-- `/admin/faqs` - Manage FAQs (list with delete)
+- `/admin/services` - Manage services (full CRUD with forms)
+- `/admin/projects` - Manage projects (full CRUD with image upload)
+- `/admin/testimonials` - Manage testimonials (full CRUD with ratings)
+- `/admin/faqs` - Manage FAQs (full CRUD)
 - `/admin/leads` - View consultation requests
+- `/admin/nav-links` - Manage navigation menu links
 - `/admin/settings` - Site settings (full CRUD)
 
 ### Features Implemented
 ✅ Authentication with Supabase Auth  
 ✅ Protected routes with role-based access  
 ✅ Dashboard with content statistics  
-✅ Services management (list view with delete)
-✅ Projects management (list view with delete)
-✅ Testimonials management (list view with delete)
-✅ FAQs management (list view with delete)
+✅ Services management (full CRUD with forms)
+✅ Projects management (full CRUD with image upload)
+✅ Testimonials management (full CRUD with star ratings)
+✅ FAQs management (full CRUD)
 ✅ Leads management (list view)
+✅ Navigation links management (full CRUD)
 ✅ Site Settings management (full CRUD)
+✅ Image upload with validation and security (5MB limit)
+✅ Storage bucket RLS policies (admin/editor only)
+✅ Performance optimizations (React Query caching)
 ✅ Responsive admin layout with sidebar  
 
+### Performance Optimizations
+✅ React Query with 5-minute staleTime for dynamic content
+✅ 15-minute staleTime for static content (settings, nav links)
+✅ 10-minute garbage collection time
+✅ Disabled unnecessary window focus refetches
+✅ Lazy loading for all admin routes
+✅ refetchOnMount disabled - only refetch when stale
+
 ### Features Coming Soon
-⏳ Full CRUD forms for Services, Projects, Testimonials, FAQs
-⏳ Image upload to Supabase Storage  
-⏳ Drag-and-drop ordering  
+⏳ Drag-and-drop ordering for content
 ⏳ Rich text editor for descriptions  
-⏳ Bulk actions  
+⏳ Bulk actions (select multiple, delete/publish)
 ⏳ Export/import functionality
+⏳ Media library management
 
 ## Content Management Workflow
 

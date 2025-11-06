@@ -4,13 +4,15 @@ import { HelmetProvider } from "react-helmet-async";
 import App from "./App.tsx";
 import "./index.css";
 
-// Configure React Query
+// Optimized Query Client configuration
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 1,
-      refetchOnWindowFocus: false,
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 5 * 60 * 1000, // 5 minutes - data stays fresh
+      gcTime: 10 * 60 * 1000, // 10 minutes - garbage collection time
+      refetchOnWindowFocus: false, // Prevent unnecessary refetches
+      retry: 1, // Retry failed requests once
+      refetchOnMount: false, // Only refetch if data is stale
     },
   },
 });
