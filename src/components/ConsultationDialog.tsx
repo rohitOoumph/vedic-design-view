@@ -10,7 +10,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
+import { useSubmitLead } from '@/cms/hooks/useLeads';
 
 interface ConsultationDialogProps {
   open: boolean;
@@ -18,7 +19,7 @@ interface ConsultationDialogProps {
 }
 
 const ConsultationDialog = ({ open, onOpenChange }: ConsultationDialogProps) => {
-  const { toast } = useToast();
+  const { mutate: submitLead, isPending } = useSubmitLead();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -30,17 +31,27 @@ const ConsultationDialog = ({ open, onOpenChange }: ConsultationDialogProps) => 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Here you would typically send the data to your backend
-    console.log('Consultation request:', formData);
-    
-    toast({
-      title: "Consultation Request Sent!",
-      description: "We'll get back to you within 24 hours.",
+    submitLead({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      project_type: formData.projectType,
+      message: formData.message,
+      source: 'consultation_form'
+    }, {
+      onSuccess: () => {
+        toast.success("Consultation Request Sent!", {
+          description: "We'll get back to you within 24 hours.",
+        });
+        setFormData({ name: '', email: '', phone: '', projectType: '', message: '' });
+        onOpenChange(false);
+      },
+      onError: (error) => {
+        toast.error("Failed to submit request", {
+          description: error instanceof Error ? error.message : "Please try again later.",
+        });
+      }
     });
-    
-    // Reset form and close dialog
-    setFormData({ name: '', email: '', phone: '', projectType: '', message: '' });
-    onOpenChange(false);
   };
 
   return (
@@ -122,9 +133,10 @@ const ConsultationDialog = ({ open, onOpenChange }: ConsultationDialogProps) => 
             </Button>
             <Button
               type="submit"
+              disabled={isPending}
               className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
             >
-              Submit Request
+              {isPending ? 'Submitting...' : 'Submit Request'}
             </Button>
           </div>
         </form>

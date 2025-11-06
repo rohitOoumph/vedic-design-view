@@ -1,64 +1,22 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { motion } from 'framer-motion';
+import { useServices } from '@/cms/hooks/useContent';
+import { Home, Building2, Box, Layout, PackageCheck, Ruler } from 'lucide-react';
 
-const services = [
-  {
-    title: 'Residential Interiors',
-    description: 'Transform your home into a personalized sanctuary with our bespoke residential design solutions.',
-    icon: (
-      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-      </svg>
-    )
-  },
-  {
-    title: 'Corporate Interiors',
-    description: 'Create inspiring workspaces that enhance productivity and reflect your brand identity.',
-    icon: (
-      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-      </svg>
-    )
-  },
-  {
-    title: 'Architectural Planning',
-    description: 'Comprehensive architectural services from concept to construction documentation.',
-    icon: (
-      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-      </svg>
-    )
-  },
-  {
-    title: 'Turnkey Execution',
-    description: 'End-to-end project management ensuring seamless execution from start to finish.',
-    icon: (
-      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-      </svg>
-    )
-  },
-  {
-    title: 'Modular Furniture & Custom Joinery',
-    description: 'Bespoke furniture solutions tailored to your space and functional requirements.',
-    icon: (
-      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
-      </svg>
-    )
-  },
-  {
-    title: '3D Design & Walkthrough',
-    description: 'Visualize your space before construction with photorealistic 3D renders and virtual tours.',
-    icon: (
-      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
-      </svg>
-    )
-  },
-];
+// Icon mapping for services
+const iconMap: Record<string, React.ReactNode> = {
+  Home: <Home className="w-12 h-12" />,
+  Building2: <Building2 className="w-12 h-12" />,
+  Box: <Box className="w-12 h-12" />,
+  Layout: <Layout className="w-12 h-12" />,
+  PackageCheck: <PackageCheck className="w-12 h-12" />,
+  Ruler: <Ruler className="w-12 h-12" />,
+};
 
 const ServicesSection = () => {
+  const { data: servicesData, isLoading } = useServices();
+  const services = servicesData || [];
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -77,6 +35,21 @@ const ServicesSection = () => {
       transition: { duration: 0.5 }
     }
   };
+
+  if (isLoading) {
+    return (
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-6">
+          <div className="text-center">
+            <div className="animate-pulse">
+              <div className="h-12 bg-muted rounded w-64 mx-auto mb-4" />
+              <div className="h-6 bg-muted rounded w-96 mx-auto" />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-24 bg-background">
@@ -106,17 +79,17 @@ const ServicesSection = () => {
           viewport={{ once: true }}
         >
           {services.map((service, index) => (
-            <motion.div key={index} variants={itemVariants}>
+            <motion.div key={service.id} variants={itemVariants}>
               <Card className="group h-full hover:shadow-xl transition-all duration-300 border-border hover:border-accent/50 bg-card">
                 <CardContent className="p-8">
                   <div className="text-accent mb-6 group-hover:scale-110 transition-transform duration-300">
-                    {service.icon}
+                    {service.icon_name && iconMap[service.icon_name] || <Box className="w-12 h-12" />}
                   </div>
                   <h3 className="text-2xl font-semibold mb-4 text-foreground">
                     {service.title}
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    {service.description}
+                    {service.short_desc}
                   </p>
                 </CardContent>
               </Card>
@@ -128,7 +101,7 @@ const ServicesSection = () => {
         <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-6 pb-4 scrollbar-hide -mx-6 px-6">
           {services.map((service, index) => (
             <motion.div
-              key={index}
+              key={service.id}
               className="snap-center flex-shrink-0 w-[85vw]"
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -138,13 +111,13 @@ const ServicesSection = () => {
               <Card className="h-full border-border bg-card">
                 <CardContent className="p-6">
                   <div className="text-accent mb-4">
-                    {service.icon}
+                    {service.icon_name && iconMap[service.icon_name] || <Box className="w-12 h-12" />}
                   </div>
                   <h3 className="text-xl font-semibold mb-3 text-foreground">
                     {service.title}
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    {service.description}
+                    {service.short_desc}
                   </p>
                 </CardContent>
               </Card>
