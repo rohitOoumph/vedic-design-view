@@ -32,13 +32,6 @@ const PortfolioCategoriesSection = ({ activeCategory, onCategoryChange }: Portfo
     }))
   ];
 
-  const stats = [
-    { label: 'Completed Projects', value: '200+' },
-    { label: 'Happy Clients', value: '180+' },
-    { label: 'Design Awards', value: '15+' },
-    { label: 'Team Members', value: '25+' }
-  ];
-
   return (
     <section className="py-24 bg-secondary/30">
       <div className="container mx-auto px-6">
@@ -57,7 +50,7 @@ const PortfolioCategoriesSection = ({ activeCategory, onCategoryChange }: Portfo
           </p>
 
           {/* Category Filters */}
-          <div className="flex flex-wrap justify-center gap-4 mb-16">
+          <div className="flex flex-wrap justify-center gap-4">
             {categories.map((category) => (
               <motion.button
                 key={category.id}
@@ -76,25 +69,6 @@ const PortfolioCategoriesSection = ({ activeCategory, onCategoryChange }: Portfo
             ))}
           </div>
         </motion.div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              className="text-center p-6 bg-card rounded-lg border border-border"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div className="text-4xl font-display font-bold text-accent mb-2">
-                {stat.value}
-              </div>
-              <div className="text-muted-foreground">{stat.label}</div>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   );

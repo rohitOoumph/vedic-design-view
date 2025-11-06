@@ -41,19 +41,19 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
         </button>
 
         <div className="relative">
-          {/* Main Image */}
-          <div className="relative h-[400px] w-full overflow-hidden bg-muted">
+          {/* Main Image - Full View */}
+          <div className="relative w-full overflow-hidden bg-muted">
             <img
               src={selectedImage || project.cover_image_url || '/placeholder.svg'}
               alt={project.title}
-              className="h-full w-full object-cover"
+              className="w-full object-contain max-h-[70vh]"
               loading="lazy"
               decoding="async"
             />
           </div>
 
-          {/* Content */}
-          <div className="p-8">
+          {/* Content - Below Image */}
+          <div className="p-8 bg-background">
             <div className="flex items-center gap-4 mb-4">
               {project.category && (
                 <span className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-medium">
