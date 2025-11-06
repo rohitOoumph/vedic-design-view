@@ -1,12 +1,74 @@
 import { useState } from "react";
-import { useServices } from "@/cms/hooks/useContent";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus, Pencil, Trash2, Eye, EyeOff } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Plus, Pencil, Trash2 } from "lucide-react";
+import { toast } from "sonner";
+import { ServiceFormDialog } from "../components/ServiceFormDialog";
+import { Database } from "@/integrations/supabase/types";
+
+type Service = Database["public"]["Tables"]["services"]["Row"];
 
 export const ServicesPage = () => {
-  const { data: services, isLoading } = useServices();
+  const [isDeleting, setIsDeleting] = useState<string | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
+
+  const { data: services, isLoading, refetch } = useQuery({
+    queryKey: ["admin-services"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("services")
+        .select("*")
+        .order("order_index", { ascending: true });
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this service?")) return;
+    
+    setIsDeleting(id);
+    try {
+      const { error } = await supabase
+        .from("services")
+        .delete()
+        .eq("id", id);
+      
+      if (error) throw error;
+      toast.success("Service deleted successfully");
+      refetch();
+    } catch (error: any) {
+      toast.error(error.message || "Failed to delete service");
+    } finally {
+      setIsDeleting(null);
+    }
+  };
+
+  const handleEdit = (service: Service) => {
+    setSelectedService(service);
+    setIsFormOpen(true);
+  };
+
+  const handleCreate = () => {
+    setSelectedService(null);
+    setIsFormOpen(true);
+  };
+
+  const handleFormClose = () => {
+    setIsFormOpen(false);
+    setSelectedService(null);
+  };
 
   if (isLoading) {
     return (
@@ -21,54 +83,74 @@ export const ServicesPage = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Services</h1>
-          <p className="text-muted-foreground">Manage your service offerings</p>
+          <p className="text-muted-foreground">Manage service offerings</p>
         </div>
-        <Button>
-          <Plus className="h-4 w-4 mr-2" />
+        <Button onClick={handleCreate}>
+          <Plus className="mr-2 h-4 w-4" />
           Add Service
         </Button>
       </div>
 
-      <div className="grid gap-4">
-        {services?.map((service) => (
-          <Card key={service.id}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0">
-              <div className="flex items-center gap-4">
-                <CardTitle className="text-xl">{service.title}</CardTitle>
-                <div className="flex gap-2">
-                  <Badge variant={service.status === 'published' ? 'default' : 'secondary'}>
+      <div className="bg-card rounded-lg border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Title</TableHead>
+              <TableHead>Description</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Featured</TableHead>
+              <TableHead>Order</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {services?.map((service) => (
+              <TableRow key={service.id}>
+                <TableCell className="font-medium">{service.title}</TableCell>
+                <TableCell className="max-w-md truncate">{service.short_desc}</TableCell>
+                <TableCell>
+                  <Badge variant={service.status === "published" ? "default" : "secondary"}>
                     {service.status}
                   </Badge>
-                  {service.is_featured && (
+                </TableCell>
+                <TableCell>
+                  {service.is_featured ? (
                     <Badge variant="outline">Featured</Badge>
-                  )}
-                </div>
-              </div>
-              <div className="flex gap-2">
-                <Button variant="ghost" size="icon">
-                  <Pencil className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="icon">
-                  {service.status === 'published' ? (
-                    <EyeOff className="h-4 w-4" />
                   ) : (
-                    <Eye className="h-4 w-4" />
+                    "-"
                   )}
-                </Button>
-                <Button variant="ghost" size="icon">
-                  <Trash2 className="h-4 w-4 text-destructive" />
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">{service.short_desc}</p>
-              <div className="mt-4 text-xs text-muted-foreground">
-                Order: {service.order_index} | Icon: {service.icon_name || 'None'}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+                </TableCell>
+                <TableCell>{service.order_index}</TableCell>
+                <TableCell className="text-right">
+                  <div className="flex justify-end gap-2">
+                    <Button variant="ghost" size="icon" onClick={() => handleEdit(service)}>
+                      <Pencil className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleDelete(service.id)}
+                      disabled={isDeleting === service.id}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
+
+      <ServiceFormDialog
+        open={isFormOpen}
+        onOpenChange={handleFormClose}
+        service={selectedService}
+        onSuccess={() => {
+          refetch();
+          handleFormClose();
+        }}
+      />
     </div>
   );
 };

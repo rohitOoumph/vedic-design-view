@@ -13,9 +13,15 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { FAQFormDialog } from "../components/FAQFormDialog";
+import { Database } from "@/integrations/supabase/types";
+
+type FAQ = Database["public"]["Tables"]["faqs"]["Row"];
 
 export const FAQsPage = () => {
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedFAQ, setSelectedFAQ] = useState<FAQ | null>(null);
 
   const { data: faqs, isLoading, refetch } = useQuery({
     queryKey: ["admin-faqs"],
@@ -49,6 +55,21 @@ export const FAQsPage = () => {
     }
   };
 
+  const handleEdit = (faq: FAQ) => {
+    setSelectedFAQ(faq);
+    setIsFormOpen(true);
+  };
+
+  const handleCreate = () => {
+    setSelectedFAQ(null);
+    setIsFormOpen(true);
+  };
+
+  const handleFormClose = () => {
+    setIsFormOpen(false);
+    setSelectedFAQ(null);
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -64,7 +85,7 @@ export const FAQsPage = () => {
           <h1 className="text-3xl font-bold">FAQs</h1>
           <p className="text-muted-foreground">Manage frequently asked questions</p>
         </div>
-        <Button>
+        <Button onClick={handleCreate}>
           <Plus className="mr-2 h-4 w-4" />
           Add FAQ
         </Button>
@@ -100,7 +121,7 @@ export const FAQsPage = () => {
                 <TableCell>{faq.order_index}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
-                    <Button variant="ghost" size="icon">
+                    <Button variant="ghost" size="icon" onClick={() => handleEdit(faq)}>
                       <Pencil className="h-4 w-4" />
                     </Button>
                     <Button
@@ -118,6 +139,16 @@ export const FAQsPage = () => {
           </TableBody>
         </Table>
       </div>
+
+      <FAQFormDialog
+        open={isFormOpen}
+        onOpenChange={handleFormClose}
+        faq={selectedFAQ}
+        onSuccess={() => {
+          refetch();
+          handleFormClose();
+        }}
+      />
     </div>
   );
 };

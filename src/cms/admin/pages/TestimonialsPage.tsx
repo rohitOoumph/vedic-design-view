@@ -13,9 +13,15 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Plus, Pencil, Trash2, Star } from "lucide-react";
 import { toast } from "sonner";
+import { TestimonialFormDialog } from "../components/TestimonialFormDialog";
+import { Database } from "@/integrations/supabase/types";
+
+type Testimonial = Database["public"]["Tables"]["testimonials"]["Row"];
 
 export const TestimonialsPage = () => {
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null);
 
   const { data: testimonials, isLoading, refetch } = useQuery({
     queryKey: ["admin-testimonials"],
@@ -49,6 +55,21 @@ export const TestimonialsPage = () => {
     }
   };
 
+  const handleEdit = (testimonial: Testimonial) => {
+    setSelectedTestimonial(testimonial);
+    setIsFormOpen(true);
+  };
+
+  const handleCreate = () => {
+    setSelectedTestimonial(null);
+    setIsFormOpen(true);
+  };
+
+  const handleFormClose = () => {
+    setIsFormOpen(false);
+    setSelectedTestimonial(null);
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -64,7 +85,7 @@ export const TestimonialsPage = () => {
           <h1 className="text-3xl font-bold">Testimonials</h1>
           <p className="text-muted-foreground">Manage client testimonials</p>
         </div>
-        <Button>
+        <Button onClick={handleCreate}>
           <Plus className="mr-2 h-4 w-4" />
           Add Testimonial
         </Button>
@@ -112,7 +133,7 @@ export const TestimonialsPage = () => {
                 <TableCell>{testimonial.order_index}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
-                    <Button variant="ghost" size="icon">
+                    <Button variant="ghost" size="icon" onClick={() => handleEdit(testimonial)}>
                       <Pencil className="h-4 w-4" />
                     </Button>
                     <Button
@@ -130,6 +151,16 @@ export const TestimonialsPage = () => {
           </TableBody>
         </Table>
       </div>
+
+      <TestimonialFormDialog
+        open={isFormOpen}
+        onOpenChange={handleFormClose}
+        testimonial={selectedTestimonial}
+        onSuccess={() => {
+          refetch();
+          handleFormClose();
+        }}
+      />
     </div>
   );
 };
